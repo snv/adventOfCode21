@@ -1,17 +1,28 @@
 fun main() {
-    val lastPosition = input.lines()
+    val commands = input.lines()
         .map(::parseCommand)
-        .fold(Position(0, 0)) { pos, cmd ->
+    val lastPosition1 = commands
+        .fold(Position()) { pos, cmd ->
             pos.apply(cmd)
         }
     println("""
         first part:
-            Last position is $lastPosition
-            Quizanswer is ${lastPosition.horizontal * lastPosition.depth}
+            Last position is $lastPosition1
+            Quizanswer is ${lastPosition1.horizontal * lastPosition1.depth}
         """.trimIndent())
+
+    val lastPosition2 = commands.fold(ComplexPosition()) { pos, cmd ->
+        pos.apply(cmd)
+    }
+    println("""
+        second part:
+            Last position is $lastPosition2
+            Quizanswer is ${lastPosition2.horizontal * lastPosition2.depth}
+        """.trimIndent())
+
 }
 
-data class Position(val horizontal: Int, val depth: Int){
+data class Position(val horizontal: Int = 0, val depth: Int = 0){
     private fun forward(x:Int) = copy(horizontal = horizontal+x)
     private fun down(x:Int) = copy(depth = depth + x)
     private fun up(x: Int) = copy(depth = depth - x)
@@ -21,6 +32,18 @@ data class Position(val horizontal: Int, val depth: Int){
         Direction.UP -> up(command.distance)
     }
 }
+
+data class ComplexPosition(val horizontal: Int = 0, val depth: Int = 0, val aim: Int = 0){
+    private fun forward(x:Int) = copy(horizontal = horizontal + x, depth = depth + aim*x)
+    private fun down(x:Int) = copy(aim = aim + x)
+    private fun up(x: Int) = copy(aim = aim - x)
+    fun apply(command: Command) = when (command.direction) {
+        Direction.FORWARD -> forward(command.distance)
+        Direction.DOWN -> down(command.distance)
+        Direction.UP -> up(command.distance)
+    }
+}
+
 
 enum class Direction{
     FORWARD,

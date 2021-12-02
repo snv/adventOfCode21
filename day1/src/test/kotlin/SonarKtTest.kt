@@ -32,8 +32,5 @@ internal class SonarKtTest {
             .also(::println)
             .increments()
             .also(::println)
-
-
-
     }
 }
