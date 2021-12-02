@@ -1,19 +1,17 @@
 fun main() {
     val commands = input.lines()
         .map(::parseCommand)
+
     val lastPosition1 = commands
-        .fold(Position()) { pos, cmd ->
-            pos.apply(cmd)
-        }
+        .fold(Position(), Position::execute)
     println("""
         first part:
             Last position is $lastPosition1
             Quizanswer is ${lastPosition1.horizontal * lastPosition1.depth}
         """.trimIndent())
 
-    val lastPosition2 = commands.fold(ComplexPosition()) { pos, cmd ->
-        pos.apply(cmd)
-    }
+    val lastPosition2 = commands
+        .fold(ComplexPosition(), ComplexPosition::execute)
     println("""
         second part:
             Last position is $lastPosition2
@@ -22,28 +20,28 @@ fun main() {
 
 }
 
-data class Position(val horizontal: Int = 0, val depth: Int = 0){
-    private fun forward(x:Int) = copy(horizontal = horizontal+x)
-    private fun down(x:Int) = copy(depth = depth + x)
-    private fun up(x: Int) = copy(depth = depth - x)
-    fun apply(command: Command) = when (command.direction) {
+data class Position(val horizontal: Int = 0, val depth: Int = 0):Divable<Position>(){
+    override fun forward(x:Int) = copy(horizontal = horizontal+x)
+    override fun down(x:Int) = copy(depth = depth + x)
+    override fun up(x: Int) = copy(depth = depth - x)
+}
+
+data class ComplexPosition(val horizontal: Int = 0, val depth: Int = 0, val aim: Int = 0): Divable<ComplexPosition>(){
+    override fun forward(x:Int) = copy(horizontal = horizontal + x, depth = depth + aim*x)
+    override fun down(x:Int) = copy(aim = aim + x)
+    override fun up(x: Int) = copy(aim = aim - x)
+}
+
+abstract class Divable<T> {
+    abstract fun forward(x:Int) : T
+    abstract fun down(x:Int) : T
+    abstract fun up(x:Int) : T
+    fun execute(command: Command) = when (command.direction) {
         Direction.FORWARD -> forward(command.distance)
         Direction.DOWN -> down(command.distance)
         Direction.UP -> up(command.distance)
     }
 }
-
-data class ComplexPosition(val horizontal: Int = 0, val depth: Int = 0, val aim: Int = 0){
-    private fun forward(x:Int) = copy(horizontal = horizontal + x, depth = depth + aim*x)
-    private fun down(x:Int) = copy(aim = aim + x)
-    private fun up(x: Int) = copy(aim = aim - x)
-    fun apply(command: Command) = when (command.direction) {
-        Direction.FORWARD -> forward(command.distance)
-        Direction.DOWN -> down(command.distance)
-        Direction.UP -> up(command.distance)
-    }
-}
-
 
 enum class Direction{
     FORWARD,

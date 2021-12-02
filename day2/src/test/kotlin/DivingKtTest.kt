@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class DivingKtTest {
-    val sampleInput = """
+    private val sampleInput = """
         forward 5
         down 5
         forward 8
@@ -34,9 +34,10 @@ internal class DivingKtTest {
             .lines()
             .map(::parseCommand)
 
-        val (horizontal, depth, _) = commands.fold(ComplexPosition()) { pos, cmd ->
-            pos.apply(cmd)
-        }
+        //act
+        val (horizontal, depth, _) = commands.fold(ComplexPosition(), ComplexPosition::execute)
+
+        //assert
         assertEquals(15, horizontal)
         assertEquals(60, depth)
     }
