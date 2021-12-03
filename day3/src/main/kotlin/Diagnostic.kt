@@ -6,3 +6,5 @@ fun main() {
             Life Suppurt Rating is ${lifeSupportRating(input)}
     """.trimIndent())
 }
+
+fun flipBit(it: Int) = (it - 1) * -1
