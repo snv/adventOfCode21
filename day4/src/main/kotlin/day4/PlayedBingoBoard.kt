@@ -3,18 +3,25 @@ package day4
 typealias Coordinate = Pair<Int, Int>
 
 class PlayedBingoBoard(private val board: BingoBoard, private val drawnNumbers: DrawnNumbers){
-    val winsAfter: Int?
-    val finalScore: Int?
+    val winsAfter: Int
+    private val lastCalledNumber: Int
+    val finalScore: Int
 
     init {
-        val (wonInTurn, withMarkedNumbers) = play()
+        val (winsAfter, withMarkedNumbers) = play()
+        this.winsAfter = winsAfter
 
-        winsAfter = if (wonInTurn < Int.MAX_VALUE) wonInTurn else null
+        lastCalledNumber = if (winsAfter < drawnNumbers.size) drawnNumbers[winsAfter] else drawnNumbers.last()
 
-        finalScore = withMarkedNumbers
-            .findWinningCoords()
-            .map { it.sumOf { (row, column) -> board[row][column] } }
-            .maxOf { it } * wonInTurn
+        finalScore = lastCalledNumber *
+            board
+                .foldIndexed(0) { rowNr, totalScore, row ->
+                    totalScore +
+                        row.filterIndexed { colNr, _ ->
+                            !withMarkedNumbers.positions.contains(Pair(rowNr, colNr))
+                        }
+                            .sum()
+                }
     }
 
     private fun play() = drawnNumbers.foldIndexed(

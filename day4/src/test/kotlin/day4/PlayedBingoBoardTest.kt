@@ -49,7 +49,18 @@ internal class PlayedBingoBoardTest {
 
     @Test
     fun getFinalScore() {
-        assertEquals(4512, PlayedBingoBoard(winningBoard, sampleDrawnNumbers))
+        assertEquals(4512, PlayedBingoBoard(winningBoard, sampleDrawnNumbers).finalScore)
+    }
+
+    @Test
+    fun `the correct board wins`(){
+        assertEquals(
+            4512,
+            listOf(PlayedBingoBoard(winningBoard, sampleDrawnNumbers), PlayedBingoBoard(loosingBoard, sampleDrawnNumbers))
+                .minByOrNull { it.winsAfter }
+                ?.finalScore
+                ?: fail()
+        )
     }
 
 }
