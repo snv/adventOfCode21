@@ -30,7 +30,7 @@ enum class BitCriteria(val flipped: Boolean) {
     CO2( true)
 }
 
-fun findBestMatch(
+tailrec fun findBestMatch(
     remainingCandidates: List<Candidate>,
     mode: BitCriteria,
 ): String =

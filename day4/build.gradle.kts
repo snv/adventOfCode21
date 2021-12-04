@@ -14,6 +14,7 @@ dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.0")
 }
 
 tasks.test {

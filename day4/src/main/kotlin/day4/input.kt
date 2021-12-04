@@ -2,7 +2,7 @@ package day4
 
 typealias DrawnNumbers = List<Int>
 typealias BingoBoard = List<List<Int>>
-private const val BOARD_SIZE = 5
+const val BOARD_SIZE = 5
 
 data class Input(val drawnNumbers: DrawnNumbers, val boards : List<BingoBoard>)
 

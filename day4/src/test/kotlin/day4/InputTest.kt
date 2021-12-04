@@ -3,7 +3,7 @@ package day4
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-internal class day4Test {
+internal class InputTest {
     private val rawSampleInput = """
         7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
         
@@ -29,7 +29,7 @@ internal class day4Test {
     @Test
     fun parseInput() {
         val (drawnNumbers, boards) = rawSampleInput.parseInput()
-        Assertions.assertEquals(listOf(7,
+        val sampleDrawnNumbers = listOf(7,
             4,
             9,
             5,
@@ -55,7 +55,8 @@ internal class day4Test {
             19,
             3,
             26,
-            1),
+            1)
+        Assertions.assertEquals(sampleDrawnNumbers,
             drawnNumbers
         )
         Assertions.assertEquals(
