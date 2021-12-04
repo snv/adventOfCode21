@@ -25,5 +25,5 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClass.set("DivingKt")
+    mainClass.set("day2.DivingKt")
 }

@@ -1,27 +1,29 @@
-import org.junit.jupiter.api.Assertions.*
+package day1
+
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 internal class SonarKtTest {
 
     @Test
     fun window_increments() {
-        assertEquals(2,
-            listOf(1,2,3)
+        Assertions.assertEquals(2,
+            listOf(1, 2, 3)
                 .windowIncrements(1)
         )
 
-        assertEquals(1,
-            listOf(1,2,3)
+        Assertions.assertEquals(1,
+            listOf(1, 2, 3)
                 .windowIncrements(2)
         )
 
-        assertEquals(2,
-            listOf(1,2,3,4)
+        Assertions.assertEquals(2,
+            listOf(1, 2, 3, 4)
                 .windowIncrements(2)
         )
 
-        assertEquals(1,
-            listOf(1,2,2,1)
+        Assertions.assertEquals(1,
+            listOf(1, 2, 2, 1)
                 .windowIncrements(2)
         )
 

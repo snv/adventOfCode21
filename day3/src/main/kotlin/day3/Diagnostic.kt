@@ -1,3 +1,5 @@
+package day3
+
 fun main() {
     println("""
         Part 1:

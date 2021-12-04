@@ -1,3 +1,5 @@
+package day2
+
 val input = """
     forward 1
     down 5

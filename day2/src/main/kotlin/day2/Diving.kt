@@ -1,3 +1,5 @@
+package day2
+
 fun main() {
     val commands = input.lines()
         .map(::parseCommand)
@@ -20,7 +22,7 @@ fun main() {
 
 }
 
-data class Position(val horizontal: Int = 0, val depth: Int = 0):Divable<Position>(){
+data class Position(val horizontal: Int = 0, val depth: Int = 0): Divable<Position>(){
     override fun forward(x:Int) = copy(horizontal = horizontal+x)
     override fun down(x:Int) = copy(depth = depth + x)
     override fun up(x: Int) = copy(depth = depth - x)

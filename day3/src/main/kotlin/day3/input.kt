@@ -1,3 +1,5 @@
+package day3
+
 fun String.parse() = lines()
     .map(String::toList)
     .map { it.map(Char::digitToInt) }

@@ -1,3 +1,5 @@
+package day3
+
 import kotlin.math.roundToInt
 
 fun powerConsumption(data: List<List<Int>>) = epsilon(data) * gamma(data)

@@ -25,5 +25,5 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClass.set("BingoWithSquidKt")
+    mainClass.set("day4.BingoWithSquidKt")
 }

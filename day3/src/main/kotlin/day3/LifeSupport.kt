@@ -1,3 +1,5 @@
+package day3
+
 import kotlin.math.roundToInt
 
 fun lifeSupportRating(diagnosticReport : List<List<Int>>) :Int = oxygenRating(diagnosticReport) * co2ScrubberRating(diagnosticReport)

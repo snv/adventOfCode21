@@ -1,3 +1,5 @@
+package day4
+
 typealias DrawnNumbers = List<Int>
 typealias BingoBoard = List<List<Int>>
 private const val BOARD_SIZE = 5

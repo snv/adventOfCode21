@@ -1,3 +1,5 @@
+package day1
+
 fun List<Int>.increments() = zipWithNext { a, b -> a < b }
     .count { it }
 
