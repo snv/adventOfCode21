@@ -23,7 +23,10 @@ fun String.parseInput() = Input(
 private fun parseBoard(rawBoard: List<String>) : BingoBoard{
     require(rawBoard.size == BOARD_SIZE) {"Expected rawBoard to have the size $BOARD_SIZE, but got the board $rawBoard"}
     return rawBoard
-        .map { it.split(Regex("\\s")) }
+        .map {
+            it.trimStart()
+                .split(Regex("\\s+"))
+        }
         .map { it.map(String::toInt) }
 }
 
@@ -31,4 +34,4 @@ private val rawInput = """
     
 """.trimIndent()
 
-val input = rawInput.parseInput()
+//val input = rawInput.parseInput()

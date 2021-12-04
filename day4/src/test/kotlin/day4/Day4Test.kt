@@ -60,13 +60,11 @@ internal class day4Test {
         )
         Assertions.assertEquals(
             listOf(
-                listOf(
-                    listOf(22, 13, 17, 11, 0),
-                    listOf(8, 2, 23, 4, 24),
-                    listOf(21, 9, 14, 16, 7),
-                    listOf(6, 10, 3, 18, 5),
-                    listOf(1, 12, 20, 15, 19)
-                )
+                listOf(22, 13, 17, 11, 0),
+                listOf(8, 2, 23, 4, 24),
+                listOf(21, 9, 14, 16, 7),
+                listOf(6, 10, 3, 18, 5),
+                listOf(1, 12, 20, 15, 19)
             ),
             boards.first()
         )
