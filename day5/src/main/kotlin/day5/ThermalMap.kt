@@ -1,7 +1,5 @@
 package day5
 
-import jdk.jfr.Threshold
-
 typealias Coordinate = Pair<Int,Int>
 typealias Vents = Pair<Coordinate, Coordinate>
 typealias HeatMap = Map<Coordinate, Int>
@@ -31,9 +29,9 @@ fun buildHeatMap(lines : Collection<Vents>): HeatMap = lines
     }
 
 @Suppress("unused") //for debugging
-fun HeatMap.draw() =
-    (0..9).joinToString(separator = "", prefix = "${this}\n") { second ->
-        (0..9)
+fun HeatMap.draw(minX: Int = 0, maxX: Int = 9, minY: Int = 0, maxY: Int = 9) =
+    (minY..maxY).joinToString(separator = "", prefix = "${this}\n") { second ->
+        (minX..maxX)
             .map { this[it to second] }
             .map { it?.digitToChar() ?: '.' }
             .joinToString(separator = "", postfix = "\n", prefix = "\t")
