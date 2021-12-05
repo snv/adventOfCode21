@@ -2,12 +2,13 @@ package day5
 
 typealias Coordinate = Pair<Int,Int>
 typealias Vents = Pair<Coordinate, Coordinate>
-typealias HeatMap = Map<Coordinate, Int>
+typealias HeatMap = MutableMap<Coordinate, Int>
 
-@JvmName("plusCoords")
-operator fun HeatMap.plus(coordinate: Coordinate) : HeatMap = plus(
+@JvmName("plusAssignCoords")
+operator fun HeatMap.plusAssign(coordinate: Coordinate) = plusAssign(
     coordinate to getOrDefault(coordinate, 0) + 1
 )
+
 
 fun Vents.expand() : List<Coordinate> = let { (start, end) ->
     (if (start.first <= end.first) (start.first..end.first) else (end.first..start.first))
@@ -19,13 +20,14 @@ fun Vents.expand() : List<Coordinate> = let { (start, end) ->
 
 
 @JvmName("plusVents")
-operator fun HeatMap.plus(vents: Vents) :HeatMap = vents.expand()
-    .fold(this) { heatmap, vent ->  heatmap + vent }
+operator fun HeatMap.plusAssign(vents: Vents) = vents.expand()
+    .forEach{ this += it }
 
 fun buildHeatMap(lines : Collection<Vents>): HeatMap = lines
-    .fold(emptyMap()) {
+    .fold(mutableMapOf()) {
         heatMap: HeatMap, vents ->
-        heatMap + vents
+        heatMap += vents
+        heatMap
     }
 
 @Suppress("unused") //for debugging

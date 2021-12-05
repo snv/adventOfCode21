@@ -50,15 +50,26 @@ internal class ThermalMapKtTest {
 
     @Test
     fun `add coordinates to heatmap`() {
-        val heatmap = emptyMap<Coordinate, Int>() + (0 to 9) + (7 to 0) + (0 to 9)
+        val heatmap : HeatMap = mutableMapOf()
 
-        assertEquals(
-            mapOf(
-                (7 to 0) to 1,
-                (0 to 9) to 2
-            ),
-            heatmap
-        )
+        ExpandedSampleVents.SHORT_HORIZONTAL.coordinates
+            .forEach { heatmap += it }
+        println(heatmap.draw())
+
+        ExpandedSampleVents.LONG_HORIZONTAL.coordinates
+            .forEach { heatmap += it }
+        println(heatmap.draw())
+
+        ExpandedSampleVents.VERTICAL.coordinates
+            .forEach { heatmap += it }
+        println(heatmap.draw())
+
+        assertNull(heatmap[9 to 9])
+        assertEquals(2, heatmap[0 to 9])
+        assertEquals(2, heatmap[2 to 9])
+        assertEquals(1, heatmap[3 to 9])
+        assertEquals(1, heatmap[7 to 2])
+        assertEquals(1, heatmap[7 to 4])
     }
 
     @Nested
@@ -93,10 +104,11 @@ internal class ThermalMapKtTest {
 
     @Test
     fun `add lines of vents to heatmap`() {
-        val heatmap = emptyMap<Coordinate, Int>() +
-            SampleVents.LONG_HORIZONTAL.vents +
-            SampleVents.SHORT_HORIZONTAL.vents +
-            SampleVents.VERTICAL.vents
+        val heatmap :HeatMap = mutableMapOf()
+
+        heatmap += SampleVents.LONG_HORIZONTAL.vents
+        heatmap += SampleVents.SHORT_HORIZONTAL.vents
+        heatmap += SampleVents.VERTICAL.vents
 
         //println(heatmap.draw())
 
