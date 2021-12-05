@@ -9,15 +9,27 @@ operator fun HeatMap.plusAssign(coordinate: Coordinate) = plusAssign(
     coordinate to getOrDefault(coordinate, 0) + 1
 )
 
-
 fun Vents.expand() : List<Coordinate> = let { (start, end) ->
-    (if (start.first <= end.first) (start.first..end.first) else (end.first..start.first))
-        .flatMap { first ->
-            (if (start.second <= end.second) (start.second..end.second) else (end.second..start.second))
-                .map { second -> Coordinate(first,second) }
-        }
+    when {
+        start.first == end.first -> verticalLine(start.second, end.second, start.first)
+        start.second == end.second -> horizontalLine(start.first, end.first, start.second)
+        else -> diagonalLine(start.first, start.second, end.first, end.second)
+    }
 }
 
+private fun rangeOf(a: Int, b: Int) = if (a <= b) (a..b) else (a downTo b)
+
+private fun horizontalLine(startX: Int, endX: Int, y : Int) =
+    rangeOf(startX, endX)
+        .map { Coordinate(it, y) }
+
+private fun verticalLine(startY: Int, endY: Int, x: Int) =
+    rangeOf(startY, endY)
+        .map { Coordinate(x, it) }
+
+private fun diagonalLine(startX: Int, startY: Int, endX: Int, endY: Int) : List<Coordinate> =
+    rangeOf(startX, endX)
+        .zip(rangeOf(startY, endY))
 
 @JvmName("plusVents")
 operator fun HeatMap.plusAssign(vents: Vents) = vents.expand()

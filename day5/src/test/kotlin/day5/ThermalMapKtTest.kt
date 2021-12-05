@@ -27,12 +27,24 @@ internal class ThermalMapKtTest {
             7 to 2,
             7 to 3,
             7 to 4
+        )),
+        DIAGONAL_A(listOf(
+            1 to 1,
+            2 to 2,
+            3 to 3
+        )),
+        DIAGONAL_B(listOf(
+            9 to 7,
+            8 to 8,
+            7 to 9
         ))
     }
     enum class SampleVents(val vents: Vents){
         LONG_HORIZONTAL((0 to 9) to (5 to 9)),
         SHORT_HORIZONTAL((0 to 9) to (2 to 9)),
-        VERTICAL((7 to 0) to (7 to 4))
+        VERTICAL((7 to 0) to (7 to 4)),
+        DIAGONAL_A((1 to 1) to (3 to 3)),
+        DIAGONAL_B((9 to 7) to (7 to 9)),
     }
 
     val sampleInput = listOf(
@@ -121,9 +133,23 @@ internal class ThermalMapKtTest {
     }
 
     @Test
-    fun buildHeatMap() {
+    fun `adding diagonal lines`(){
+        val heatMap :HeatMap = mutableMapOf()
+
+        heatMap += SampleVents.DIAGONAL_A.vents
+        heatMap += SampleVents.DIAGONAL_B.vents
+
+        assertTrue {
+            ExpandedSampleVents.DIAGONAL_A.coordinates
+                .all { heatMap.containsKey(it) } and
+            ExpandedSampleVents.DIAGONAL_B.coordinates
+                .all { heatMap.containsKey(it) }
+        }
+    }
+
+    @Test
+    fun drawHeatMap() {
         val filtered = sampleInput
-            .filter { (start, end) -> start.first == end.first || start.second == end.second }
             .also(::println)
 
         println(buildHeatMap(filtered).draw())
@@ -138,4 +164,15 @@ internal class ThermalMapKtTest {
 
         assertEquals(5, hotspots.size)
     }
+
+    @Test
+    fun findHotspotsWithDiagonals(){
+        val filtered = sampleInput
+
+        val hotspots = buildHeatMap(filtered).findHotspots(2)
+
+        assertEquals(12, hotspots.size)
+    }
+
+
 }
