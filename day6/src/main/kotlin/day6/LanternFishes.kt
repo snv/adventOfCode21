@@ -1,6 +1,5 @@
 import day6.parse
 import day6.rawInput
-import java.math.BigInteger
 
 fun main() {
 //    val input = rawInput.parse()

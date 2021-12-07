@@ -2,10 +2,9 @@ package day6
 
 import Swarm
 import age
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Test
-import java.math.BigInteger
-import kotlin.test.assertContentEquals
 
 internal class LanternFishesKtTest {
     private val sampleInput = """
