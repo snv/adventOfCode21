@@ -30,7 +30,7 @@ internal class CrabAlignmentTest(){
 
     @Suppress("ClassName")
     @Nested
-    inner class `calculating the fuel costs`{
+    inner class `calculating the linear fuel costs`{
         @ParameterizedTest
         @CsvSource(value = [
             "1, 41",
@@ -42,7 +42,7 @@ internal class CrabAlignmentTest(){
             assertEquals(
                 expectedFuelCost,
                 CrabSwarm(sampleInput.parse())
-                    .fuelcost(position)
+                    .constantFuelCost(position)
             )
         }
 
@@ -51,9 +51,45 @@ internal class CrabAlignmentTest(){
             assertEquals(
                 37,
                 CrabSwarm(sampleInput.parse())
-                    .idealFuelCost
+                    .idealConstantFuelCost
             )
         }
     }
+
+    @Suppress("ClassName")
+    @Nested
+    inner class `calculating the increasing fuel costs`{
+        @ParameterizedTest
+        @CsvSource(value = [
+            "5, 168",
+            "2, 206"
+        ])
+        fun `for Position`(position: Int, expectedFuelCost: Int) {
+            assertEquals(
+                expectedFuelCost,
+                CrabSwarm(sampleInput.parse())
+                    .increasingFuelCost(position)
+            )
+        }
+
+        @Test
+        fun `find ideal fuel cost`() {
+            assertEquals(
+                168,
+                CrabSwarm(sampleInput.parse())
+                    .idealIncreasingConstantFuelCost
+            )
+        }
+    }
+
+    @Test
+    fun `find best weighed position`(){
+        val crabSwarm = CrabSwarm(sampleInput.parse())
+        assertEquals(
+            5,
+            crabSwarm.weighedPosition
+        )
+    }
+
 
 }
