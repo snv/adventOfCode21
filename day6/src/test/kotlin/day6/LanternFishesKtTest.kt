@@ -20,7 +20,7 @@ internal class LanternFishesKtTest {
 
     @Test
     fun `age 18 days`() {
-        val swarm: Swarm = sampleInput.parse().toMutableList()
+        val swarm: Swarm = sampleInput.parse()
 
         for (i in 1..18) {
             swarm.age()
@@ -28,19 +28,19 @@ internal class LanternFishesKtTest {
 
         assertEquals(
             26,
-            swarm.count()
+            swarm.values.sum()
         )
     }
 
     @Test
     fun `age 80 days`() {
-        val swarm: Swarm = sampleInput.parse().toMutableList()
+        val swarm: Swarm = sampleInput.parse()
 
         swarm.age(80)
 
         assertEquals(
             5934,
-            swarm.count()
+            swarm.values.sum()
         )
     }
 }

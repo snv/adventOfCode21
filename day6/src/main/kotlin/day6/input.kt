@@ -6,3 +6,8 @@ val rawInput = """
 
 fun String.parse() = split(',')
     .map(String::toInt)
+    .fold(mutableMapOf<Int,Int>()) {
+            swarm, currentFishTimer -> swarm.apply {
+        merge(currentFishTimer, 1, Int::plus)
+    }
+    }
