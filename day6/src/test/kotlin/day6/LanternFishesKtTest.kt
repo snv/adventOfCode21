@@ -4,6 +4,8 @@ import Swarm
 import age
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.math.BigInteger
+import kotlin.test.assertContentEquals
 
 internal class LanternFishesKtTest {
     private val sampleInput = """
@@ -12,9 +14,18 @@ internal class LanternFishesKtTest {
 
     @Test
     fun parse() {
-        assertEquals(
-            listOf(3,4,3,1,2),
+        assertIterableEquals(
+            mapOf<Int,Long>(
+                1 to 1,
+                2 to 1,
+                3 to 2,
+                4 to 1,
+            )
+                .toSortedMap()
+                .entries,
             sampleInput.parse()
+                .toSortedMap()
+                .entries
         )
     }
 

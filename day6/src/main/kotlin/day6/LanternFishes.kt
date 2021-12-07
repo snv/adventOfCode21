@@ -1,23 +1,24 @@
 import day6.parse
 import day6.rawInput
+import java.math.BigInteger
 
 fun main() {
 //    val input = rawInput.parse()
     println("""
         Part 1:
-            ${swarmSizeForPart1()}
+            ${swarmSizeAfter(80)}
         Part 2:
-            
+            ${swarmSizeAfter(256)}
     """.trimIndent())
 }
 
-typealias Swarm = MutableMap<Int,Int>
+typealias Swarm = MutableMap<Int,Long>
 
-fun swarmSizeForPart1() = rawInput
+fun swarmSizeAfter(days: Int) = rawInput
     .parse()
-    .age(80)
+    .age(days)
     .values
-    .sum()
+    .reduce(Long::plus)
 
 fun Swarm.age(days: Int = 1): Swarm {
     for (i in 1..days) {
@@ -31,7 +32,7 @@ fun Swarm.age(days: Int = 1): Swarm {
         this.remove(-1)
             ?.let { spawningAmount ->
                 this[8] = spawningAmount
-                merge(6, spawningAmount, Int::plus)
+                merge(6, spawningAmount, Long::plus)
             }
     }
     return this
